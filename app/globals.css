@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --lk-bg1: #0b1536; /* deep night */
+  --lk-bg2: #132e5a; /* river blue */
+  --lk-accent: #2563eb; /* blue */
+  --lk-love: #ec4899; /* pink */
+  --lk-gold: #f59e0b; /* lantern glow */
+}
+
+/* Night sky background */
+.lk-bg {
+  background: radial-gradient(1200px 600px at 85% -10%, rgba(255,255,255,0.15), transparent 50%),
+              radial-gradient(900px 500px at 10% -10%, rgba(255,255,255,0.10), transparent 50%),
+              linear-gradient(180deg, var(--lk-bg1) 0%, var(--lk-bg2) 100%);
+}
+
+/* Card container for mobile */
+.lk-card {
+  @apply rounded-3xl bg-white/95 backdrop-blur shadow-lg ring-1 ring-black/5 p-5 sm:p-7;
+}
+
+/* Moon */
+.moon {
+  position: absolute;
+  top: 40px;
+  right: min(24px, 6vw);
+  width: 68px;
+  height: 68px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ffe9b0 60%, rgba(255,255,255,0.1) 61%);
+  box-shadow: 0 0 30px 6px rgba(255, 249, 213, 0.6);
+  opacity: .9;
+}
+
+/* Floating lanterns */
+.lantern {
+  position: absolute;
+  left: var(--x);
+  bottom: -12vh;
+  width: 18px;
+  height: 26px;
+  background: linear-gradient(180deg, #ffd9a8 0%, #ffb44d 70%, #cc7a00 100%);
+  border-radius: 6px 6px 10px 10px;
+  box-shadow: 0 0 12px 4px rgba(245, 158, 11, 0.45);
+  transform: translateY(0) scale(var(--scale));
+  animation: lk-float 18s linear infinite;
+  animation-delay: var(--delay);
+  opacity: .9;
+}
+
+@keyframes lk-float {
+  0% { transform: translateY(0) scale(var(--scale)); opacity: .0 }
+  6% { opacity: .9 }
+  100% { transform: translateY(-120vh) scale(var(--scale)); opacity: .95 }
+}
+
+/* Buttons */
+.lk-btn {
+  @apply inline-flex items-center justify-center rounded-2xl px-4 py-3 text-base font-medium shadow-sm hover:shadow transition;
+  background: linear-gradient(135deg, var(--lk-accent), var(--lk-love));
+  color: white;
+}
+
+.lk-outline {
+  @apply inline-flex items-center rounded-2xl border px-4 py-3 shadow-sm hover:shadow;
+}
+
+/* Typography tweaks for nicer reading on mobile */
+@layer base {
+  h1 { @apply font-extrabold text-3xl sm:text-4xl tracking-tight; }
+  h2 { @apply font-bold text-2xl sm:text-3xl tracking-tight; }
+  p  { @apply leading-relaxed; }
+}
+
+/* Smooth scrolling and tap highlight removal */
+html { scroll-behavior: smooth; }
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Fade animation for slideshow */
+.animate-lk-fade { animation: lk-fade 1.1s ease-in-out; }
+@keyframes lk-fade { from { opacity: 0 } to { opacity: 1 } }
+
+/* River at the bottom */
+.river {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 32vh;
+  background: linear-gradient(180deg, rgba(19,46,90,0.55), rgba(11,21,54,0.95));
+  border-top: 1px solid rgba(255,255,255,0.06);
+  mask-image: linear-gradient(to top, black 75%, transparent);
+}
+.river::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(120px 18px at 20% 30%, rgba(255,255,255,0.12), transparent 60%),
+              radial-gradient(140px 20px at 60% 40%, rgba(255,255,255,0.10), transparent 60%),
+              radial-gradient(100px 16px at 85% 35%, rgba(255,255,255,0.12), transparent 60%);
+  animation: lk-waves 12s linear infinite;
+  opacity: .5;
+}
+@keyframes lk-waves {
+  0% { transform: translateX(-20%); }
+  100% { transform: translateX(20%); }
+}
+
+/* Krathong (floating) */
+.krathong {
+  position: absolute;
+  left: 50%;
+  bottom: 12vh;
+  width: 120px; height: 90px;
+  transform: translateX(-50%);
+  animation: krathong-bob 5.5s ease-in-out infinite;
+}
+.krathong .base {
+  position: absolute;
+  left: 50%; bottom: 8px;
+  transform: translateX(-50%);
+  width: 120px; height: 36px;
+  border-radius: 999px / 60px;
+  background: radial-gradient(ellipse at 50% 40%, #22c55e 0%, #16a34a 55%, #065f46 100%);
+  box-shadow: inset 0 -6px 10px rgba(0,0,0,.25), 0 6px 14px rgba(0,0,0,.25);
+}
+.krathong .flower {
+  position: absolute;
+  left: 50%; bottom: 26px;
+  transform: translateX(-50%);
+  width: 54px; height: 22px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 50% 40%, #ffd1a6, #fb923c 70%, #b45309 100%);
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+}
+.krathong .candle {
+  position: absolute;
+  left: 50%; bottom: 42px;
+  transform: translateX(-50%);
+  width: 6px; height: 28px; border-radius: 3px;
+  background: #e5e7eb;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,.2);
+}
+.krathong .flame {
+  position: absolute; left: 50%; bottom: 68px; transform: translateX(-50%);
+  width: 16px; height: 26px;
+  background: radial-gradient(circle at 50% 70%, #fff 0%, #fde68a 45%, #f59e0b 70%, rgba(245,158,11,.1) 100%);
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, .6));
+  animation: flame-flicker .9s infinite ease-in-out alternate;
+}
+.krathong .ripples {
+  position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+  width: 160px; height: 60px;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,.35) 0 2px, transparent 3px);
+  mask-image: radial-gradient(120px 35px at 50% 50%, black 40%, transparent 70%);
+  animation: ripple 3.5s ease-out infinite;
+  opacity: .25;
+}
+@keyframes krathong-bob {
+  0% { transform: translate(-50%, 0) }
+  50% { transform: translate(-50%, -4px) }
+  100% { transform: translate(-50%, 0) }
+}
+@keyframes flame-flicker {
+  from { transform: translateX(-50%) scale(0.95); opacity: .95 }
+  to   { transform: translateX(-50%) scale(1.05); opacity: 1 }
+}
+@keyframes ripple {
+  0%   { transform: translateX(-50%) scale(0.9); opacity: .35 }
+  100% { transform: translateX(-50%) scale(1.15); opacity: 0 }
+}
